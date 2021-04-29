@@ -4,7 +4,10 @@ export default function NewTaskForm(props) {
     function onSubmitHandler(event) {
         event.preventDefault(); 
         console.log("submit form");
-        props.onSubmit();
+        props.onSubmit(createTask());
+    }
+    function createTask() {
+        return {id:7,title: 'play fotball', done: true, description:'', dueDate:new Date('2021-12-23')};
     }
     return (
         <form onSubmit={onSubmitHandler}>

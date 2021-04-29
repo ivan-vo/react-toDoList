@@ -32,20 +32,22 @@ function App() {
   const [selectedTasks, setSelectedTasks] = useState(selectedList.tasks)
   
 
-  function addTask() {
-    console.log("form buble");
-    let task = {id:3,title: 'movo to trash', done: true, description:'', dueDate:new Date('2021-12-06')};
+  function addTask(task) {
     setSelectedTasks([
       ...selectedTasks,
-      {id:6,title: 'play basketball', done: true, description:'', dueDate:''}
+      task
     ]
     )
+  }
+
+  function newSelectTasks() {
+    console.log("New selected tasks");
   }
 
   return (
     <div className="App">
 
-    <TodoListSidebar todoLists={todoLists}/>
+    <TodoListSidebar onClick={newSelectTasks} todoLists={todoLists}/>
     <div className='tasks'>
       {
         selectedTasks.map(task => (<Task task={task} key={task.id}/>))
