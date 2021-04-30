@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import {  useState } from 'react';
 import './App.css';
 import NewTaskForm from './components/NewTaskForm';
 import Task from './components/Task';
@@ -29,19 +29,14 @@ function App() {
   )
 
   const [selectedList, setSelectedList] = useState(todoLists[0])
-  const [selectedTasks, setSelectedTasks] = useState(selectedList.tasks)
   
 
   function addTask(task) {
-    setSelectedTasks([
-      ...selectedTasks,
-      task
-    ]
-    )
+    
   }
 
-  function newSelectTasks() {
-    console.log("New selected tasks");
+  const newSelectTasks = (list) => {
+    setSelectedList(list)
   }
 
   return (
@@ -49,8 +44,9 @@ function App() {
 
     <TodoListSidebar onClick={newSelectTasks} todoLists={todoLists}/>
     <div className='tasks'>
+      <h1 className="list-name">{selectedList.title}</h1>
       {
-        selectedTasks.map(task => (<Task task={task} key={task.id}/>))
+        selectedList.tasks.map(task => (<Task task={task} key={task.id}/>))
       }
       <NewTaskForm onSubmit={addTask}/>
     </div>
