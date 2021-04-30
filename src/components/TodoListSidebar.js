@@ -3,10 +3,10 @@ import React from 'react'
 export default function TodoListSidebar(props) {
 
     function setTasks(tasklist) {
-        props.onClick(tasklist);
+        props.onSelect(tasklist);
     }
     const getClass = (id) => {
-        if (id === props.SL.id) {
+        if (id === props.selectedList.id) {
             return 'selected-list-button';
         }
         else{

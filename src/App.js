@@ -45,7 +45,7 @@ function App() {
     setSelectedList({ ...list })
   }
 
-  const newSelectTasks = (list) => {
+  const selectedTodoList = (list) => {
     setSelectedList(list)
   }
 
@@ -66,11 +66,11 @@ function App() {
   return (
     <div className="App">
 
-      <TodoListSidebar onClick={newSelectTasks} SL={selectedList} todoLists={todoLists} />
+      <TodoListSidebar onSelect={selectedTodoList} selectedList={selectedList} todoLists={todoLists} />
       <div className='tasks'>
         <h1 className="list-name">{selectedList.title}</h1>
         {
-          selectedList.tasks.map(task => (<Task setDone={replaceTask} onClick={removeTask} task={task} key={task.id} />))
+          selectedList.tasks.map(task => (<Task task={task} key={task.id} setDone={replaceTask} onClick={removeTask}/>))
         }
         <NewTaskForm onSubmit={addTask} />
       </div>
