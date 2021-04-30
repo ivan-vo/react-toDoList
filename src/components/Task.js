@@ -24,14 +24,22 @@ export default function Task(props) {
     const setDoneTask = (task) => {
         let oldtask = task;
         task.done ? task.done = false : task.done = true;
-        return props.setDone(oldtask,task);
+        props.setDone(oldtask,task);
     }
 
     const title = props.task.title;
     
     return (
         <div className='item'>
-            <p> <input onClick={() => setDoneTask(props.task)} type='checkbox' checked={setChecked(props.task.done)}/> {title} - {dateToString(props.task.dueDate)}</p>
+            <p> 
+                <input 
+                    onClick={() => setDoneTask(props.task)} 
+                    type='checkbox' 
+                    checked={setChecked(props.task.done)}
+                    readOnly
+                />
+            {title} - {dateToString(props.task.dueDate)}
+            </p>
             <p className='description'>{props.task.description}</p>
             <button onClick={() => deleteTask(props.task)} className="button-delete">Delete</button>
         </div>

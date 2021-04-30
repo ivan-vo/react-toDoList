@@ -1,34 +1,43 @@
 import React, { useState } from 'react'
 
+const useForm = (...fields) => (
+    {
+        reset: (value) => fields.forEach(f => f.reset(value)),
+    })
+
 export default function NewTaskForm(props) {
-    function onSubmitHandler(event) {
+    const id = useTextField('','id');
+    const title = useTextField('','title');
+    const dueDate = useTextField('','dueDate');
+    const description = useTextField('','description');
+    const form = useForm(id,title,dueDate,description)
+
+    const onSubmitHandler = (event) => {
         event.preventDefault();
-        props.onSubmit(createTask());
+        props.onSubmit(createdTask());
+        form.reset('');
     }
 
-    function useTextField(init) {
+    function useTextField(init,name) {
         const [value, setValue] = useState(init);
         return {
             value,
-            onChange: (e) => setValue(e.target.value)
+            name:name,
+            onChange: (event) => setValue(event.target.value),
+            reset: (value) => setValue(value)
         }
     }
 
-    const id = useTextField('');
-    const title = useTextField('');
-    const dueDate = useTextField('');
-    const description = useTextField('');
-
-    const createTask = () => {
+    const createdTask = () => {
         return { id: id.value, title: title.value, done: false, description: description.value, dueDate: dueDate.value };
     }
 
     return (
         <form onSubmit={onSubmitHandler}>
-            <input {...id} type="text" name="id" placeholder="id" />
-            <input {...title} type="text" name="title" placeholder="title" />
-            <input {...dueDate} type="date" name="dueDate" placeholder="2021, 2, 20" />
-            <input {...description} type="text" name="description" placeholder="Description" />
+            <input {...id} type="text" placeholder="id" />
+            <input {...title} type="text" placeholder="title" />
+            <input {...dueDate} type="date"  placeholder="2021, 2, 20" />
+            <input {...description} type="text" placeholder="Description" />
             <button type="submit">Add new task</button>
         </form>
     )
